@@ -18,6 +18,7 @@ The system can:
 - Send the final email using SendGrid
 - Stream agent output in real time
 - Use OpenAI tracing to inspect agent workflows
+- Input guardrails to check whether requests are relevant and safe for the SDR workflow
 
 ## Tech Stack
 
@@ -30,6 +31,7 @@ The system can:
 - Function tools
 - Agent handoffs
 - OpenAI tracing
+- Input guardrails
 
 ## Key Features
 
@@ -125,6 +127,21 @@ SENDGRID_API_KEY=
 
 The SendGrid sender email must be verified in SendGrid before emails can be sent.
 
+## Guardrails
+
+The project includes guardrails to make the SDR agent workflow safer and more controlled.
+
+Guardrails help check user input before the main agent continues with the task. This is useful because the system is designed for a specific workflow: generating and sending cold sales emails. If the input is unrelated, unsafe, or outside the expected use case, the guardrail can stop or redirect the workflow before the agents start acting on it.
+
+In this project, guardrails are used to:
+
+- Validate whether the request is relevant to sales outreach
+- Prevent the workflow from handling unrelated tasks
+- Add an extra safety layer before email generation or sending
+- Keep the agent focused on SDR-style email workflows
+
+This makes the system more reliable because the Sales Manager agent does not blindly process every user request.
+
 ## Requirements
 
 ```text
@@ -154,4 +171,4 @@ The `.env` file should stay local and be included in `.gitignore`.
 
 Core project completed.
 
-The project currently supports multi-agent email generation, best-draft selection, subject generation, HTML formatting, SendGrid email sending, tool usage, handoffs, streaming, and tracing.
+The project currently supports multi-agent email generation, best-draft selection, subject generation, HTML formatting, SendGrid email sending, tool usage, handoffs, input guardrails, streaming, and tracing.
